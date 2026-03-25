@@ -18,8 +18,7 @@
 #+----------+#
 
 use std/assert
-use ../term-output.nu *
-use ../get-settings.nu *
+use ../nu-modules *
 
 __info "Running tests..."
 

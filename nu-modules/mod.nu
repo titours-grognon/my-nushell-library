@@ -3,8 +3,8 @@
 #+----------------+#
 #| MINIMAL MODULE |#
 #+----------------+#
-export use term-output.nu
+export use term-output.nu *
 
-export use external-command-control.nu *
+export use run-shell-command.nu *
 export use get-settings.nu *
 export use handy-tools.nu *

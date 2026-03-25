@@ -120,7 +120,7 @@ def display-message [
       "error"   => $"(ansi reset)($timestamp)(ansi red_bold) ✗ ($msg)(ansi reset)"
       "info"    => $"(ansi reset)($timestamp)(ansi white_bold) • ($msg)(ansi reset)"
       "success" => $"(ansi reset)($timestamp)(ansi green_bold) ✓ ($msg)(ansi reset)"
-      _         => $"(ansi reset)($timestamp)(ansi white_bold) - ($msg) (ansi reset)"
+      _         => $"(ansi reset)($timestamp)(ansi white_underline) - ($msg) (ansi reset)"
     }
   )
 }

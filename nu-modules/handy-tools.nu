@@ -8,9 +8,9 @@
 #+--------+#
 #| *INFO* |#
 #+--------+#
-#
-# Utilities functions
-#
+
+# A collection of helpful utility functions
+
 #+-----------------+#
 #| *CONFIGURATION* |#
 #+-----------------+#
@@ -21,7 +21,7 @@ use term-output.nu *
 #| PUBLIC |#
 #+--------+#
 
-export def __check-directory-path [
+export def __check-dir [
   --create    # If present, try to create the directory
 ]: [
   list<string> -> bool
@@ -45,7 +45,7 @@ export def __check-directory-path [
   true
 }
 
-export def __check-file-path [
+export def __check-file [
 ]: [
   list<string> -> bool
   string -> bool

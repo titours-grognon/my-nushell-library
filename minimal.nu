@@ -41,14 +41,14 @@ const file_hierarchy = if ($script_dir == "/usr/local/bin") {
   # Tree structure for local usage of script:
   #   .
   #   ├── script-name.nu
-  #   ├── nu_modules
+  #   ├── nu-modules
   #   │  ├── module-<aaa>.nu
   #   │  ├── [...]
   #   │  └── module-<zzz>.nu
   #   └── settings.toml
   {
     settings_dir: ([$script_dir settings.toml] | path join),
-    modules_dir: ([$script_dir nu_modules] | path join)
+    modules_dir: ([$script_dir nu-modules] | path join)
   }
 }
 
@@ -57,35 +57,37 @@ const file_hierarchy = if ($script_dir == "/usr/local/bin") {
 #+----------+#
 
 # DEVELOPMENT MODE:
-# use nu_modules *
+# use nu-modules *
 # PRODUCTION MODE:
-# use $"($file_hierarchy.modules_path)" *
+# use $"($file_hierarchy.modules_dir)" *
 
-use nu_modules *
+# @snippet_mode@
+use nu-modules *
+# @snippet_mode@
 
-#+--------------------+#
-#| Script description |#
-#+--------------------+#
+#+---------------------------------------+
+#| A basic script for creating a new one |
+#+---------------------------------------+
 @example "Get help: " { ./<script-name>.nu [--help]}
 @example "Get information about the script environment: " { ./<script-name>.nu [--show-env]}
 def main [
   --show-env  # Show script configuration environment
 ]: nothing -> any {
-  __display-message "Welcome in « My-Nushell-Library »"
+  __note "Welcome in « My-Nushell-Library »"
 
   nu $env.PROCESS_PATH --help
 
   if $show_env {
-    __display-horizontal-rule
-    __display-message --level info $"Path to script: \n\t\t($script_dir)"
-    __display-message --level info $"Path to configuration file: \n\t\t($file_hierarchy.settings_path)"
-    if not ($file_hierarchy.settings_path | __check-file-path) {
-      __display-message --level alert "Configuration file not present"
+    __draw-line
+    __info $"Path to script: \n\t\t($script_dir)"
+    __info $"Path to configuration file: \n\t\t($file_hierarchy.settings_dir)"
+    if not ($file_hierarchy.settings_dir | __check-file) {
+      __alert "Configuration file not present"
     }
-    __display-message --level info $"Path to script module folder: \n\t\t($file_hierarchy.modules_path)"
-    if not ($file_hierarchy.modules_path | __check-directory-path) {
-      __display-message --level alert "Script module folder not present"
+    __info $"Path to script module folder: \n\t\t($file_hierarchy.modules_dir)"
+    if not ($file_hierarchy.modules_dir | __check-dir) {
+      __alert "Script module folder not present"
     }
-    __display-horizontal-rule
+    __draw-line
   }
 }
